@@ -48,6 +48,17 @@ class MusicModule: RCTEventEmitter {
       }
   }
 
+  @objc(setPlayheadTime:)
+      func setPlayheadTime(_ time: TimeInterval) {
+          Task {
+              do {
+                  try SystemMusicPlayer.shared.playbackTime = time
+              } catch {
+                  print("Seeking failed: \(error)")
+              }
+          }
+      }
+
   private func sendPlaybackStateUpdate() {
       let state = SystemMusicPlayer.shared.state
       let playbackTime = SystemMusicPlayer.shared.playbackTime

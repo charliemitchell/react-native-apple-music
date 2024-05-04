@@ -15,6 +15,13 @@ const nativeEventEmitter = new NativeEventEmitter(MusicModule);
 
 class Player {
   /**
+   * Sets the play head time of the current song.
+   */
+  public static setPlayheadTime(time: number) {
+    MusicModule.setPlayheadTime(time);
+  }
+
+  /**
    * Skips to the next entry in the playback queue.
    */
   public static skipToNextEntry(): void {
