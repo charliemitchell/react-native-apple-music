@@ -1,4 +1,9 @@
-# Apple MusicKit for React Native
+# This is a fork of
+[@lomray/react-native-apple-music](https://www.npmjs.com/package/@lomray/react-native-apple-music)
+
+You should use that package instead of this as I may open PRs to that repo eventually
+
+## Apple MusicKit for React Native
 
 A react native module for the Apple MusicKit ( [iOS](https://developer.apple.com/musickit/) )
 
@@ -56,7 +61,7 @@ npx pod-install
 As of React Native `> 0.61`, auto linking should work for iOS. There shouldn't be any modifications necessary and it _Should_ work out of the box.
 
 ## Usage
-The `@lomray/react-native-apple-music` package provides a set of tools to interact with Apple MusicKit in your React Native application. Here's how to get started:
+The `@charliemitchell/react-native-apple-music` package provides a set of tools to interact with Apple MusicKit in your React Native application. Here's how to get started:
 ### Importing the Module
 First, import the necessary modules from the package:
 ```javascript
@@ -66,7 +71,7 @@ import {
   MusicKit,
   useCurrentSong,
   useIsPlaying,
-} from '@lomray/react-native-apple-music';
+} from '@charliemitchell/react-native-apple-music';
 ```
 
 ### Authentication
