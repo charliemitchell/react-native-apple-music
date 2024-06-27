@@ -16,7 +16,7 @@ RCT_EXTERN_METHOD(getTracksFromLibrary:(RCTPromiseResolveBlock)resolve rejecter:
 
 RCT_EXTERN_METHOD(play)
 RCT_EXTERN_METHOD(pause)
-RCT_EXTERN_METHOD(setPlayheadTime:(NSNumber *)time)
+RCT_EXTERN_METHOD(playSongSection:(NSString *)itemId type:(NSString *)type startTime:(NSTimeInterval)startTime endTime:(NSTimeInterval)endTime resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
 RCT_EXTERN_METHOD(skipToNextEntry)
 RCT_EXTERN_METHOD(togglePlayerState)
 RCT_EXTERN_METHOD(getCurrentState:(RCTResponseSenderBlock)callback)

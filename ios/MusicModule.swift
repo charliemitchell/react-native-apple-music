@@ -48,17 +48,6 @@ class MusicModule: RCTEventEmitter {
       }
   }
 
-  @objc(setPlayheadTime:)
-      func setPlayheadTime(_ time: TimeInterval) {
-          Task {
-              do {
-                  try SystemMusicPlayer.shared.playbackTime = time
-              } catch {
-                  print("Seeking failed: \(error)")
-              }
-          }
-      }
-
   private func sendPlaybackStateUpdate() {
       let state = SystemMusicPlayer.shared.state
       let playbackTime = SystemMusicPlayer.shared.playbackTime
@@ -525,6 +514,39 @@ class MusicModule: RCTEventEmitter {
                     return
                 }
                } catch {
+                 reject("ERROR", "Failed to set tracks to queue: \(error)", error)
+               }
+        }
+    }
+
+    @objc(playSongSection:type:startTime:endTime:resolver:rejecter:)
+    func playSongSection(
+        _ itemId: String,
+        type: String,
+        startTime: TimeInterval,
+        endTime: TimeInterval,
+        resolver resolve: @escaping RCTPromiseResolveBlock,
+        rejecter reject: @escaping RCTPromiseRejectBlock
+    ) {
+        Task {
+            do {
+                let musicItemId = MusicItemID.init(itemId)
+                let request = MusicCatalogResourceRequest<Song>(matching: \.id, equalTo: musicItemId)
+                let response = try await request.response()
+                let player = SystemMusicPlayer.shared
+                guard let playableMusicItem = response.items.first else { return }
+                let queueEntry = MusicPlayer.Queue.Entry(playableMusicItem, startTime: startTime, endTime: endTime)
+                let queue = MusicPlayer.Queue.init([queueEntry], startingAt: queueEntry)
+
+                player.queue = queue
+
+                try await player.prepareToPlay()
+
+                resolve("Track(s) are added to queue")
+
+                return
+
+                } catch {
                  reject("ERROR", "Failed to set tracks to queue: \(error)", error)
                }
         }
